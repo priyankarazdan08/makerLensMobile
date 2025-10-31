@@ -10,7 +10,8 @@ import Foundation
 import FirebaseFirestore
 
 struct Step: Identifiable, Codable {
-    @DocumentID var id: String?
+//    @DocumentID var id: String?
+    var id: String = UUID().uuidString  // ← Add this instead
     let title: String           // "Connect Arduino to Breadboard"
     let content: String         // Instructions, explanations
     let stepNumber: Int         // Current step (1-6)
@@ -21,11 +22,11 @@ struct Step: Identifiable, Codable {
     let canSkip: Bool = true    // Allow skip functionality
     
     enum CodingKeys: String, CodingKey {
-        case id, title, content, stepNumber, totalSteps
+        case title, content, stepNumber, totalSteps
         case resources, checkpoints, isCompleted, canSkip
     }
     
-    init(id: String? = nil, title: String, content: String, stepNumber: Int, totalSteps: Int, resources: StepResources = StepResources(), checkpoints: [String] = []) {
+    init(id: String = UUID().uuidString, title: String, content: String, stepNumber: Int, totalSteps: Int, resources: StepResources = StepResources(), checkpoints: [String] = []) {
         self.id = id
         self.title = title
         self.content = content

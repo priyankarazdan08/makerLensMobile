@@ -5,7 +5,6 @@
 //  Created by Priyanka Razdan on 9/2/25.
 //
 
-
 import SwiftUI
 
 struct SearchResultsContentView: View {
@@ -54,7 +53,7 @@ struct SearchResultsContentView: View {
             .padding(.horizontal, AppConstants.Spacing.lg)
             .padding(.vertical, AppConstants.Spacing.sm)
             
-            // Search Results Grid (2 columns like your image)
+            // Search Results List View
             if viewModel.isSearching {
                 ProgressView("Searching...")
                     .padding(AppConstants.Spacing.xl)
@@ -74,9 +73,9 @@ struct SearchResultsContentView: View {
                 .padding(AppConstants.Spacing.xl)
             } else {
                 ScrollView {
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 20) {
+                    LazyVStack(spacing: AppConstants.Spacing.sm) {
                         ForEach(viewModel.searchResults) { creation in
-                            SearchResultCard(creation: creation)
+                            SearchResultListRow(creation: creation)
                         }
                     }
                     .padding(.horizontal, AppConstants.Spacing.lg)
@@ -91,50 +90,61 @@ struct SearchResultsContentView: View {
     }
 }
 
-// MARK: - Search Result Card (like your grid images)
-struct SearchResultCard: View {
+// MARK: - Search Result List Row (NO IMAGE - List Style)
+struct SearchResultListRow: View {
     let creation: Creation
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Project Image
-            AsyncImage(url: URL(string: creation.imageUrl)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Rectangle()
-                    .fill(AppConstants.Colors.primaryPurple.opacity(0.1))
-                    .overlay(
-                        Image(systemName: creation.type == .project ? "hammer.fill" : "book.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(AppConstants.Colors.primaryPurple)
-                    )
-            }
-            .frame(height: 120)
-            .cornerRadius(12)
-            .clipped()
+        HStack(spacing: AppConstants.Spacing.md) {
+            // Icon on left
+            Circle()
+                .fill(AppConstants.Colors.primaryPurple.opacity(0.1))
+                .frame(width: 50, height: 50)
+                .overlay(
+                    Image(systemName: creation.type == .project ? "hammer.fill" : "book.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(AppConstants.Colors.primaryPurple)
+                )
             
             // Project Info
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(creation.title)
                     .font(.system(size: 16, weight: .semibold))
-                    .lineLimit(2)
                     .foregroundColor(.primary)
                 
-                // Difficulty Badge
-                Text(creation.difficulty.rawValue)
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color(hex: creation.difficulty.color))
-                    .cornerRadius(6)
+                HStack(spacing: AppConstants.Spacing.xs) {
+                    // Difficulty Badge
+                    Text(creation.difficulty.rawValue)
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Color(hex: creation.difficulty.color))
+                        .cornerRadius(4)
+                    
+                    // Duration if available
+                    if let duration = creation.estimatedDuration {
+                        HStack(spacing: 2) {
+                            Image(systemName: "clock")
+                                .font(.system(size: 10))
+                            Text(duration)
+                                .font(.system(size: 12))
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                }
             }
+            
+            Spacer()
+            
+            // Chevron
+            Image(systemName: "chevron.right")
+                .font(.system(size: 14))
+                .foregroundColor(.secondary)
         }
-        .padding(12)
+        .padding(AppConstants.Spacing.md)
         .background(Color(.systemBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }

@@ -5,31 +5,28 @@
 //  Created by Priyanka Razdan on 8/30/25.
 //
 
-
 import Foundation
 import FirebaseFirestore
 
 struct Component: Identifiable, Codable {
     @DocumentID var id: String?
-    let name: String            // "Arduino Uno R3"
-    let description: String     // Technical specifications
-    let imageUrl: String       // Component photo
+    let name: String
+    let description: String
+    let imageUrl: String       // STL 3D model file URL
     let category: ComponentCategory
-    let projects: [String]     // Array of project IDs using this component
-    let tutorials: [String]    // Array of tutorial IDs about this component
+    let creations: [String]     // Array of creation titles using this component
     
     enum CodingKeys: String, CodingKey {
-        case id, name, description, imageUrl, category, projects, tutorials
+        case id, name, description, imageUrl, category, creations
     }
     
-    init(id: String? = nil, name: String, description: String, imageUrl: String, category: ComponentCategory, projects: [String] = [], tutorials: [String] = []) {
+    init(id: String? = nil, name: String, description: String, imageUrl: String, category: ComponentCategory, creations: [String] = []) {
         self.id = id
         self.name = name
         self.description = description
         self.imageUrl = imageUrl
         self.category = category
-        self.projects = projects
-        self.tutorials = tutorials
+        self.creations = creations
     }
 }
 

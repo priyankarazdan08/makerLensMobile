@@ -5,15 +5,16 @@
 //  Created by Priyanka Razdan on 8/30/25.
 //
 
-
 import SwiftUI
 
 struct TopNavigationView: View {
     let title: String
     let showSearch: Bool
     let showProfile: Bool
+    @EnvironmentObject var firebaseService: FirebaseService
     @State private var searchText = ""
-    @State private var showingSearch = false // ADD THIS LINE
+    @State private var showingSearch = false
+    @State private var showingAccount = false // ADD THIS LINE
     
     init(title: String, showSearch: Bool = false, showProfile: Bool = false) {
         self.title = title
@@ -32,7 +33,7 @@ struct TopNavigationView: View {
             HStack(spacing: AppConstants.Spacing.md) {
                 if showSearch {
                     Button(action: {
-                        showingSearch = true // UPDATE THIS ACTION
+                        showingSearch = true
                     }) {
                         Image(systemName: "magnifyingglass")
                             .font(.title2)
@@ -41,17 +42,8 @@ struct TopNavigationView: View {
                 }
                 
                 if showProfile {
-                    Button(action: {
-                        // TODO: Implement profile
-                    }) {
-                        Circle()
-                            .fill(AppConstants.Colors.lightTeal)
-                            .frame(width: 32, height: 32)
-                            .overlay(
-                                Image(systemName: "person.fill")
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                            )
+                    UserAvatar(user: firebaseService.currentUser, size: 32) {
+                        showingAccount = true
                     }
                 }
                 
@@ -67,8 +59,12 @@ struct TopNavigationView: View {
             }
         }
         .padding(.horizontal, AppConstants.Spacing.lg)
-        .sheet(isPresented: $showingSearch) { // ADD THIS SHEET
+        .sheet(isPresented: $showingSearch) {
             SearchView()
+        }
+        .sheet(isPresented: $showingAccount) {
+            AccountView()
+                .environmentObject(firebaseService)
         }
     }
 }

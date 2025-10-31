@@ -21,24 +21,24 @@ struct MainTabView: View {
                 }
                 .tag(0)
             
-            ExploreView()
-                .tabItem {
-                    Image(systemName: selectedTab == 1 ? "magnifyingglass.circle.fill" : "magnifyingglass")
-                    Text("Explore")
-                }
-                .tag(1)
+//            ExploreView()
+//                .tabItem {
+//                    Image(systemName: selectedTab == 1 ? "magnifyingglass.circle.fill" : "magnifyingglass")
+//                    Text("Explore")
+//                }
+//                .tag(1)
             
-            ProjectsView()
+            CreationsView()
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "folder.fill" : "folder")
-                    Text("Projects")
+                    Text("Creations")
                 }
                 .tag(2)
             
-            TutorialsView()
+            ComponentsView()
                 .tabItem {
                     Image(systemName: selectedTab == 3 ? "book.fill" : "book")
-                    Text("Tutorials")
+                    Text("Components")
                 }
                 .tag(3)
             

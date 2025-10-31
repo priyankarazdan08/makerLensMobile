@@ -5,7 +5,6 @@
 //  Created by Priyanka Razdan on 9/2/25.
 //
 
-
 import SwiftUI
 import Combine
 
@@ -19,6 +18,7 @@ class SearchViewModel: ObservableObject {
     @Published var selectedType: CreationType?
     
     private let searchService = SearchService()
+    private let firebaseService = FirebaseService.shared
     private var searchCancellable: AnyCancellable?
     
     init() {
@@ -45,19 +45,12 @@ class SearchViewModel: ObservableObject {
         isSearching = true
         
         do {
-            // For now, search sample data (replace with Firebase later)
-            searchResults = SampleData.sampleCreations.filter { creation in
-                let titleMatch = creation.title.lowercased().contains(query.lowercased())
-                let componentMatch = creation.components.contains { $0.lowercased().contains(query.lowercased()) }
-                
-                // Apply difficulty filter
-                let difficultyMatch = selectedDifficulty == nil || creation.difficulty == selectedDifficulty
-                
-                // Apply type filter  
-                let typeMatch = selectedType == nil || creation.type == selectedType
-                
-                return (titleMatch || componentMatch) && difficultyMatch && typeMatch
-            }
+            // Search Firebase creations
+            searchResults = try await searchService.searchCreations(
+                query: query,
+                difficulty: selectedDifficulty,
+                type: selectedType
+            )
             
             // Add to recent searches
             addRecentSearch(query)

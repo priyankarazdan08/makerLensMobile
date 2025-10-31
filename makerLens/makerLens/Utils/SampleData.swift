@@ -10,79 +10,79 @@ import Foundation
 
 struct SampleData {
     // MARK: - Sample Modules
-    static let sampleModules: [Module] = [
-        Module(
-            id: "module1",
-            title: "Part 1 Preparation", 
-            description: "Setup and basic concepts",
-            order: 1,
-            unlockCriteria: nil,
-            downloadSize: "124.5 MB"
-        ).applying {
-            $0.completionPercentage = 100
-            $0.isUnlocked = true
-        },
-        
-        Module(
-            id: "module2",
-            title: "Part 2 Module Learning",
-            description: "Component-by-component tutorials", 
-            order: 2,
-            unlockCriteria: "complete module1",
-            downloadSize: "274.9 MB"
-        ).applying {
-            $0.completionPercentage = 65
-            $0.isUnlocked = true
-        },
-        
-        Module(
-            id: "module3",
-            title: "Part 3 Multi-module",
-            description: "Complex integrated projects",
-            order: 3, 
-            unlockCriteria: "complete module2",
-            downloadSize: "189.2 MB"
-        ).applying {
-            $0.completionPercentage = 25
-            $0.isUnlocked = true
-        },
-        
-        Module(
-            id: "module4",
-            title: "Part 4 Advanced",
-            description: "Creative applications",
-            order: 4,
-            unlockCriteria: "complete module3", 
-            downloadSize: "356.7 MB"
-        ).applying {
-            $0.completionPercentage = 0
-            $0.isUnlocked = false
-        },
-        
-        Module(
-            id: "module5",
-            title: "Part 5 Expert",
-            description: "Master-level projects",
-            order: 5,
-            unlockCriteria: "complete module4",
-            downloadSize: "423.1 MB"
-        ).applying {
-            $0.completionPercentage = 0
-            $0.isUnlocked = false
-        },
-        
-        Module(
-            id: "module6",
-            title: "Part 6 Innovation",
-            description: "Create your own projects",
-            order: 6,
-            unlockCriteria: "complete module5",
-            downloadSize: "298.8 MB"
-        ).applying {
-            $0.completionPercentage = 0
-            $0.isUnlocked = false
-        }
-    ]
+//    static let sampleModules: [Module] = [
+//        Module(
+//            id: "module1",
+//            title: "Part 1 Preparation", 
+//            description: "Setup and basic concepts",
+//            order: 1,
+//            unlockCriteria: nil,
+//            downloadSize: "124.5 MB"
+//        ).applying {
+//            $0.completionPercentage = 100
+//            $0.isUnlocked = true
+//        },
+//        
+//        Module(
+//            id: "module2",
+//            title: "Part 2 Module Learning",
+//            description: "Component-by-component tutorials", 
+//            order: 2,
+//            unlockCriteria: "complete module1",
+//            downloadSize: "274.9 MB"
+//        ).applying {
+//            $0.completionPercentage = 65
+//            $0.isUnlocked = true
+//        },
+//        
+//        Module(
+//            id: "module3",
+//            title: "Part 3 Multi-module",
+//            description: "Complex integrated projects",
+//            order: 3, 
+//            unlockCriteria: "complete module2",
+//            downloadSize: "189.2 MB"
+//        ).applying {
+//            $0.completionPercentage = 25
+//            $0.isUnlocked = true
+//        },
+//        
+//        Module(
+//            id: "module4",
+//            title: "Part 4 Advanced",
+//            description: "Creative applications",
+//            order: 4,
+//            unlockCriteria: "complete module3", 
+//            downloadSize: "356.7 MB"
+//        ).applying {
+//            $0.completionPercentage = 0
+//            $0.isUnlocked = false
+//        },
+//        
+//        Module(
+//            id: "module5",
+//            title: "Part 5 Expert",
+//            description: "Master-level projects",
+//            order: 5,
+//            unlockCriteria: "complete module4",
+//            downloadSize: "423.1 MB"
+//        ).applying {
+//            $0.completionPercentage = 0
+//            $0.isUnlocked = false
+//        },
+//        
+//        Module(
+//            id: "module6",
+//            title: "Part 6 Innovation",
+//            description: "Create your own projects",
+//            order: 6,
+//            unlockCriteria: "complete module5",
+//            downloadSize: "298.8 MB"
+//        ).applying {
+//            $0.completionPercentage = 0
+//            $0.isUnlocked = false
+//        }
+//    ]
     
     // MARK: - Sample Creations
     static let sampleCreations: [Creation] = [
@@ -90,7 +90,6 @@ struct SampleData {
             id: "creation1",
             title: "LED Brightness Control",
             type: .project,
-            moduleId: "module2",
             difficulty: .easy,
             components: ["Arduino Uno", "LED", "220Ω Resistor", "Potentiometer"],
             estimatedDuration: "45 min",
@@ -106,7 +105,6 @@ struct SampleData {
             id: "creation2", 
             title: "Temperature Sensor Reading",
             type: .tutorial,
-            moduleId: "module2",
             difficulty: .intermediate,
             components: ["Arduino Uno", "DHT22 Sensor", "Breadboard", "Jumper Wires"],
             estimatedDuration: "1h 15min",
@@ -122,7 +120,6 @@ struct SampleData {
             id: "creation3",
             title: "Smart Traffic Light System", 
             type: .project,
-            moduleId: "module3",
             difficulty: .advanced,
             components: ["Arduino Uno", "RGB LEDs", "Ultrasonic Sensor", "Servo Motor"],
             estimatedDuration: "2h 30min",
@@ -146,11 +143,11 @@ struct SampleData {
         $0.streak = 7
         $0.completedCreations = ["creation1"]
         $0.inProgressCreations = ["creation2"]
-        $0.moduleProgress = [
-            "module1": 100,
-            "module2": 65,
-            "module3": 25
-        ]
+//        $0.moduleProgress = [
+//            "module1": 100,
+//            "module2": 65,
+//            "module3": 25
+//        ]
     }
     
     // MARK: - Sample Components  
@@ -161,8 +158,7 @@ struct SampleData {
             description: "Microcontroller board based on ATmega328P",
             imageUrl: "https://via.placeholder.com/150x150/8B1A7A/FFFFFF?text=Arduino",
             category: .microcontroller,
-            projects: ["creation1", "creation2", "creation3"],
-            tutorials: ["tutorial1", "tutorial2"]
+            creations: ["creation1", "creation2", "creation3"],
         ),
         
         Component(
@@ -171,8 +167,7 @@ struct SampleData {
             description: "Light Emitting Diode - Red, Green, Blue",
             imageUrl: "https://via.placeholder.com/150x150/7DD3C0/FFFFFF?text=LED",
             category: .output,
-            projects: ["creation1", "creation3"],
-            tutorials: ["tutorial1"]
+            creations: ["creation1", "creation3"],
         ),
         
         Component(
@@ -181,8 +176,7 @@ struct SampleData {
             description: "220Ω, 1kΩ, 10kΩ resistors for current limiting",
             imageUrl: "https://via.placeholder.com/150x150/5CBFB0/FFFFFF?text=Resistor",
             category: .passive,
-            projects: ["creation1", "creation2"],
-            tutorials: ["tutorial3"]
+            creations: ["creation1", "creation2"],
         )
     ]
 }
